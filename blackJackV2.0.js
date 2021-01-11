@@ -18,7 +18,7 @@ var deck = {
     deckArray: [],
     initialize: function () {
         var suitArray, rankArray, s, r;
-        suitArray = ["clubs", "diamonds", "hearts", "spades"];
+        suitArray = ["C", "D", "H", "S"];
         rankArray = [2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"];
         for (s = 0; s < suitArray.length; s += 1) {
             for (r = 0; r < rankArray.length; r += 1) {
@@ -144,7 +144,15 @@ function endGame() {
 function dealerDraw() {
     dealer.cards.push(deck.deckArray[numCardsPulled]);
     dealer.score = getCardsValue(dealer.cards);
-    document.getElementById("dealer-cards").innerHTML = "Dealer Cards: " + JSON.stringify(dealer.cards);
+    var dealerCards = document.getElementById("dealer-cards")
+
+    var i = 0;
+    var cardImgs = '';
+    for (i; i < dealer.cards.length; i += 1) {
+        cardImgs += "<img src='images/cards/" + dealer.cards[i].rank + dealer.cards[i].suit + ".png' alt='card'>";
+    }
+    dealerCards.innerHTML = "<h3>Dealer</h3><br>" + cardImgs;
+
     document.getElementById("dealer-score").innerHTML = "Dealer Score: " + dealer.score;
     numCardsPulled += 1;
 }
@@ -164,10 +172,17 @@ function newGame() {
 function hit() {
     player.cards.push(deck.deckArray[numCardsPulled]);
     player.score = getCardsValue(player.cards);
-    document.getElementById("player-cards").innerHTML = "Player Cards: " + JSON.stringify(player.cards);
+    var playerCards = document.getElementById("player-cards");
+    var i = 0;
+    var cardImgs = '';
+    for (i; i < player.cards.length; i += 1) {
+        cardImgs += "<img src='images/cards/" + player.cards[i].rank + player.cards[i].suit + ".png' alt='card'>";
+    }
+    playerCards.innerHTML = "<h3>Player</h3>" + cardImgs;
+
     document.getElementById("player-score").innerHTML = "Player Score: " + player.score;
     numCardsPulled += 1;
-    if (numCardsPulled >= 2) {
+    if (numCardsPulled > 2) {
         endGame();
     }
 }
