@@ -93,43 +93,43 @@ function resetGame() {
 }
 
 function endGame() {
-    if (player.score === 21) {
+    if (player.score === 21 && dealer.score !== 21) {
         document.getElementById("message-board").innerHTML = "You win! You got blackjack." + "<br>" + "click Deal to keep playing";
         bet("win");
         document.getElementById("player-money").innerHTML = "Your money: $" + player.money;
         resetGame();
     }
-    if (player.score > 21) {
+    else if (player.score > 21) {
         document.getElementById("message-board").innerHTML = "You went over 21! The dealer wins" + "<br>" + "click Deal to keep playing";
         bet("lose");
         document.getElementById("player-money").innerHTML = "Your money: $" + player.money;
         resetGame();
     }
-    if (dealer.score === 21) {
+    else if (dealer.score === 21 && player.score !== 21) {
         document.getElementById("message-board").innerHTML = "You lost. Dealer got blackjack" + "<br>" + "click Deal to keep playing";
         bet("lose");
         document.getElementById("player-money").innerHTML = "Your money: $" + player.money;
         resetGame();
     }
-    if (dealer.score > 21) {
+    else if (dealer.score > 21 && player.score <= 21) {
         document.getElementById("message-board").innerHTML = "Dealer went over 21! You win!" + "<br>" + "click Deal to keep playing";
         bet("win");
         document.getElementById("player-money").innerHTML = "Your money: $" + player.money;
         resetGame();
     }
-    if (dealer.score >= 17 && player.score > dealer.score && player.score < 21) {
+    else if (player.score > dealer.score && player.score <= 21) {
         document.getElementById("message-board").innerHTML = "You win! You beat the dealer." + "<br>" + "click Deal to keep playing";
         bet("win");
         document.getElementById("player-money").innerHTML = "Your money: $" + player.money;
         resetGame();
     }
-    if (dealer.score >= 17 && player.score < dealer.score && dealer.score < 21) {
+    else if (player.score < dealer.score && dealer.score <= 21) {
         document.getElementById("message-board").innerHTML = "You lost. Dealer had the higher score." + "<br>" + "click Deal to keep playing";
         bet("lose");
         document.getElementById("player-money").innerHTML = "Your money: $" + player.money;
         resetGame();
     }
-    if (dealer.score >= 17 && player.score === dealer.score && dealer.score < 21) {
+    else if (player.score === dealer.score) {
         document.getElementById("message-board").innerHTML = "You tied! " + "<br>" + "click Deal to keep playing";
         resetGame();
     }
@@ -166,7 +166,6 @@ function newGame() {
     hit();
     hit();
     dealerDraw();
-    endGame();
 }
 
 function hit() {
@@ -182,13 +181,16 @@ function hit() {
 
     document.getElementById("player-score").innerHTML = "Player Score: " + player.score;
     numCardsPulled += 1;
-    if (numCardsPulled > 2) {
+    if (player.score > 21) {
+        if (dealer.cards.length < 2) {
+            dealerDraw();
+        }
         endGame();
     }
 }
 
 function stand() {
-    while (dealer.score < 17) {
+    while (player.score > dealer.score && player.score <= 21) {
         dealerDraw();
     }
     endGame();
