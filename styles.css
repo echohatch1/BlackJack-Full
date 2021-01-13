@@ -1,3 +1,8 @@
+@font-face {
+  font-family: RozhaOne-Regular;
+  src: url(fonts/RozhaOne-Regular.ttf);
+}
+
 * {
     box-sizing: border-box;
   }
@@ -10,7 +15,12 @@
     background-color: #f1f1f1;
     padding: 30px;
     text-align: center;
+  }
+
+  .header h1 {
     font-size: 35px;
+    font-family: RozhaOne-Regular;
+    letter-spacing: 5px;
   }
   
   .row {
@@ -44,6 +54,19 @@
 
   .cards img {
       width: 100px;
+      margin-left: -50px;
+  }
+
+  .cards img:first-of-type {
+    margin-left: 0;
+  }
+
+  .cards img:nth-of-type(odd) {
+    transform: translate(0, 0);
+  }
+
+  .cards img:nth-of-type(even) {
+    transform: rotateZ(4deg) translate(0, -5px);
   }
   
   .footer {
