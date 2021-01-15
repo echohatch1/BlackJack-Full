@@ -45,10 +45,10 @@ deck.initialize();
 deck.shuffle();
 
 function getCardsValue(a) {
-    var cardArray = [],
-        sum = 0,
-        i = 0,
-        aceCount = 0;
+    var cardArray = [];
+    var sum = 0;
+    var i = 0;
+    var aceCount = 0;
     cardArray = a;
     for (i; i < cardArray.length; i += 1) {
         if (cardArray[i].rank === "J" || cardArray[i].rank === "Q" || cardArray[i].rank === "K") {
@@ -155,14 +155,14 @@ function endGame() {
         document.getElementById("new-game-button").disabled = true;
         document.getElementById("hit-button").disabled = true;
         document.getElementById("stand-button").disabled = true;
-        document.getElementById("message-board").innerHTML = "You lost! You are out of money <input type='button' value='New Game' onclick='location.reload();'/>";
+        document.getElementById("message-board").innerHTML = "You lost! You are out of money <button onclick='location.reload();'>New Game</button>";
     }
 }
 
 function dealerDraw() {
     dealer.cards.push(deck.deckArray[numCardsPulled]);
     dealer.score = getCardsValue(dealer.cards);
-    var dealerCards = document.getElementById("dealer-cards")
+    var dealerCards = document.getElementById("dealer-cards");
 
     var i = 0;
     var cardImgs = '';
@@ -171,7 +171,7 @@ function dealerDraw() {
     }
     dealerCards.innerHTML = cardImgs;
 
-    document.getElementById("dealer-score").innerHTML = "Dealer Score: " + dealer.score;
+    document.getElementById("dealer-score").innerHTML = "Dealer: " + dealer.score;
     numCardsPulled += 1;
 }
 
@@ -197,7 +197,7 @@ function hit() {
     }
     playerCards.innerHTML = cardImgs;
 
-    document.getElementById("player-score").innerHTML = "Player Score: " + player.score;
+    document.getElementById("player-score").innerHTML = "Player: " + player.score;
     numCardsPulled += 1;
     if (player.score > 21) {
         if (dealer.cards.length < 2) {
