@@ -16,12 +16,22 @@
             <h1>BlackJack</h1>
             <h2 id="message-board">Click "Deal" to begin</h2>
         </div>
-
-        <div class="row table vignette-inset">
+    <div class="vignette-inset">
+        <div class="row table">
             <div class="column side"></div>
             <div class="column middle cards-container">
-                <div id="dealer-cards" class="cards center-content"></div>
-                <div id="player-cards" class="cards center-content"></div>
+
+                <div class="half-height">
+                    <div id="dealer-score" class="score">Dealer: 0</div>
+                    <div class="spacer"></div>
+                    <div id="dealer-cards" class="cards center-content"></div>
+                </div>
+                <div class="half-height">
+                    <div id="player-score" class="score">Player: 0</div>
+                    <div class="spacer"></div>
+                    <div id="player-cards" class="cards center-content"></div>
+                </div>
+                
             </div>
             <div class="column side"></div>
         </div>
@@ -32,24 +42,18 @@
 
                 <form name="blackjack" onSubmit="newGame(); return false;" action="javascript:void(0);">
                     <button type='submit' id='new-game-button'>Deal</button>
-                    <button type='button' id='hit-button' onclick='hit();' disabled>Hit</button>
-                    <button type='button' id='stand-button' onclick='stand();' disabled>Stand</button>
+                    <button type="button" id='hit-button' onclick='hit();' disabled>Hit</button>
+                    <button type="button" id='stand-button' onclick='stand();' disabled>Stand</button>
                     <br>
                     <br>
                     <div id=player-money></div>
-                    Bet:
+                    <h3>Bet</h3>
                     <input type='number' id='bet' value='10' min='1' max="100" />
                 </form>
             </div>
-            <div class="column middle center-content">
-                <div>
-                    Score:
-                    <div id="player-score"></div>
-                    <div id="dealer-score"></div>
-                </div>
-            </div>
             <div class="column side"></div>
         </div>
+    </div>
 
         <div class="footer">
             <p>Designed and Built by Landon Hatch</p>
