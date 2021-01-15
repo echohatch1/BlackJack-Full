@@ -93,51 +93,69 @@ function resetGame() {
 }
 
 function endGame() {
-    if (player.score === 21 && dealer.score !== 21) {
-        document.getElementById("message-board").innerHTML = "You win! You got blackjack." + "<br>" + "click Deal to keep playing";
+    if (player.score === 21 && dealer.score !== 21 && player.cards.length === 2) {
+        document.getElementById("message-board").innerHTML = 'You win! You got BlackJack. Click "Deal" to keep playing';
         bet("win");
         document.getElementById("player-money").innerHTML = "Your money: $" + player.money;
         resetGame();
     }
     else if (player.score > 21) {
-        document.getElementById("message-board").innerHTML = "You went over 21! The dealer wins" + "<br>" + "click Deal to keep playing";
+        document.getElementById("message-board").innerHTML = 'You busted! The dealer wins. Click "Deal" to keep playing';
         bet("lose");
         document.getElementById("player-money").innerHTML = "Your money: $" + player.money;
         resetGame();
     }
-    else if (dealer.score === 21 && player.score !== 21) {
-        document.getElementById("message-board").innerHTML = "You lost. Dealer got blackjack" + "<br>" + "click Deal to keep playing";
+    else if (dealer.score === 21 && player.score !== 21 && dealer.cards.length === 2) {
+        document.getElementById("message-board").innerHTML = 'You lost. Dealer got BlackJack. Click "Deal" to keep playing';
         bet("lose");
         document.getElementById("player-money").innerHTML = "Your money: $" + player.money;
         resetGame();
     }
     else if (dealer.score > 21 && player.score <= 21) {
-        document.getElementById("message-board").innerHTML = "Dealer went over 21! You win!" + "<br>" + "click Deal to keep playing";
+        document.getElementById("message-board").innerHTML = 'You win! Dealer busted. Click "Deal" to keep playing';
         bet("win");
         document.getElementById("player-money").innerHTML = "Your money: $" + player.money;
         resetGame();
     }
     else if (player.score > dealer.score && player.score <= 21) {
-        document.getElementById("message-board").innerHTML = "You win! You beat the dealer." + "<br>" + "click Deal to keep playing";
+        document.getElementById("message-board").innerHTML = 'You win! You had the higher score. Click "Deal" to keep playing';
         bet("win");
         document.getElementById("player-money").innerHTML = "Your money: $" + player.money;
         resetGame();
     }
     else if (player.score < dealer.score && dealer.score <= 21) {
-        document.getElementById("message-board").innerHTML = "You lost. Dealer had the higher score." + "<br>" + "click Deal to keep playing";
+        document.getElementById("message-board").innerHTML = 'You lost. Dealer had the higher score. Click "Deal" to keep playing';
         bet("lose");
         document.getElementById("player-money").innerHTML = "Your money: $" + player.money;
         resetGame();
     }
+    else if (player.score > 21 && dealer.score > 21) {
+        document.getElementById("message-board").innerHTML = 'You lost. You and Dealer busted. Click "Deal" to keep playing';
+        bet("lose");
+        document.getElementById("player-money").innerHTML = "Your money: $" + player.money;
+        resetGame();
+    }
+    else if (dealer.score === 21 && player.score === 21 && dealer.cards.length === 2 && player.cards.length > 2) {
+        document.getElementById("message-board").innerHTML = 'You lost. Dealer got BlackJack. Click "Deal" to keep playing';
+        bet("lose");
+        document.getElementById("player-money").innerHTML = "Your money: $" + player.money;
+        resetGame();
+    }
+    else if (player.score === 21 && dealer.score === 21 && player.cards.length === 2 && dealer.cards.length > 2) {
+        document.getElementById("message-board").innerHTML = 'You win! You got BlackJack. Click "Deal" to keep playing';
+        bet("win");
+        document.getElementById("player-money").innerHTML = "Your money: $" + player.money; 
+        resetGame();
+    }
     else if (player.score === dealer.score) {
-        document.getElementById("message-board").innerHTML = "You tied! " + "<br>" + "click Deal to keep playing";
+        document.getElementById("message-board").innerHTML = 'You tied! Click "Deal" to keep playing';
         resetGame();
     }
     if (player.money <= 0) {
         document.getElementById("new-game-button").disabled = true;
         document.getElementById("hit-button").disabled = true;
         document.getElementById("stand-button").disabled = true;
-        document.getElementById("message-board").innerHTML = "You lost!" + "<br>" + "You are out of money" + "<br>" + "<input type='button' value='New Game' onclick='location.reload();'/>";
+        document.getElementById("message-board").innerHTML = "You lost! You are out of money <input type='button' value='New Game' onclick='location.reload();'/>";
     }
 }
 
@@ -151,7 +169,7 @@ function dealerDraw() {
     for (i; i < dealer.cards.length; i += 1) {
         cardImgs += "<img src='images/cards/" + dealer.cards[i].rank + dealer.cards[i].suit + ".png' alt='card'>";
     }
-    dealerCards.innerHTML = "<h3>Dealer</h3><br>" + cardImgs;
+    dealerCards.innerHTML = cardImgs;
 
     document.getElementById("dealer-score").innerHTML = "Dealer Score: " + dealer.score;
     numCardsPulled += 1;
@@ -162,7 +180,7 @@ function newGame() {
     document.getElementById("hit-button").disabled = false;
     document.getElementById("stand-button").disabled = false;
     document.getElementById("bet").disabled = true;
-    document.getElementById("message-board").innerHTML = "";
+    document.getElementById("message-board").innerHTML = "Hit or Stand?";
     hit();
     hit();
     dealerDraw();
@@ -177,7 +195,7 @@ function hit() {
     for (i; i < player.cards.length; i += 1) {
         cardImgs += "<img src='images/cards/" + player.cards[i].rank + player.cards[i].suit + ".png' alt='card'>";
     }
-    playerCards.innerHTML = "<h3>Player</h3>" + cardImgs;
+    playerCards.innerHTML = cardImgs;
 
     document.getElementById("player-score").innerHTML = "Player Score: " + player.score;
     numCardsPulled += 1;
@@ -190,7 +208,7 @@ function hit() {
 }
 
 function stand() {
-    while (player.score > dealer.score && player.score <= 21) {
+    while (dealer.score < 17) {
         dealerDraw();
     }
     endGame();
