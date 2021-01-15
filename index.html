@@ -2,6 +2,11 @@
     <html>
 
     <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="BlackJack Game">
+        <meta name="keywords" content="HTML,CSS,JavaScript,BlackJack,Game">
+        <meta name="author" content="Landon Hatch">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="styles.css">
     </head>
 
@@ -9,25 +14,26 @@
 
         <div class="header">
             <h1>BlackJack</h1>
+            <h2 id="message-board">Click "Deal" to begin</h2>
         </div>
 
-        <div class="row table">
+        <div class="row table vignette-inset">
             <div class="column side"></div>
-            <div class="column middle">
-                <div id="dealer-cards" class="cards"></div>
-                <div id="player-cards" class="cards"></div>
+            <div class="column middle cards-container">
+                <div id="dealer-cards" class="cards center-content"></div>
+                <div id="player-cards" class="cards center-content"></div>
             </div>
             <div class="column side"></div>
         </div>
 
         <div class="row">
             <div class="column side"></div>
-            <div class="column middle">
+            <div class="column middle center-content">
 
                 <form name="blackjack" onSubmit="newGame(); return false;" action="javascript:void(0);">
-                    <input type='submit' id='new-game-button' value='Deal' />
-                    <input type='button' id='hit-button' value='Hit' onclick='hit();' disabled />
-                    <input type='button' id='stand-button' value='Stand' onclick='stand();' disabled />
+                    <button type='submit' id='new-game-button'>Deal</button>
+                    <button type='button' id='hit-button' onclick='hit();' disabled>Hit</button>
+                    <button type='button' id='stand-button' onclick='stand();' disabled>Stand</button>
                     <br>
                     <br>
                     <div id=player-money></div>
@@ -35,12 +41,12 @@
                     <input type='number' id='bet' value='10' min='1' max="100" />
                 </form>
             </div>
-            <div class="column middle">
-                Score:
-                <div id="player-score"></div>
-                <div id="dealer-score"></div>
-                <br>
-                <h2 id="message-board"></h2>
+            <div class="column middle center-content">
+                <div>
+                    Score:
+                    <div id="player-score"></div>
+                    <div id="dealer-score"></div>
+                </div>
             </div>
             <div class="column side"></div>
         </div>
