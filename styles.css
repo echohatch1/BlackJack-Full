@@ -10,6 +10,27 @@
   body {
     font-family: Arial, Helvetica, sans-serif;
   }
+
+  img {
+    height: auto;
+  }
+
+  button {
+    background-color: #FD3A0F;
+    color: #fff;
+    border: 2px solid #b9ae0b;
+    box-shadow: 3px 3px #000;
+    font-size: 20px;
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    filter: grayscale(80%);
+    cursor: default;
+  }
   
   .header {
     background-color: #f1f1f1;
@@ -21,6 +42,9 @@
     font-size: 35px;
     font-family: RozhaOne-Regular;
     letter-spacing: 5px;
+    color: #FD3A0F;
+    -webkit-text-stroke: 1px #b9ae0b;
+    text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   }
   
   .row {
@@ -44,17 +68,44 @@
     flex: 2;
   }
 
+  .center-content {
+    display: flex;
+    justify-content: center;
+  }
+
   .table {
       background-image: url('images/blackjack-felt.jpg');
       background-position: center;
       background-repeat: repeat;
       background-size: cover;
-      min-height: 300px;
+  }
+
+  .vignette-inset {
+    position: relative;
+  }
+  
+  .vignette-inset:after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    box-shadow: inset 0px 0px 100px black;
+  }
+
+  .cards-container {
+    height: 50vh;
+  }
+
+  .cards {
+    padding: 20px 0;
+    height: 50%;
+    align-items: center;
   }
 
   .cards img {
-      width: 100px;
+      height: 100%;
+      width: auto;
       margin-left: -50px;
+      z-index: 2;
   }
 
   .cards img:first-of-type {
@@ -67,6 +118,14 @@
 
   .cards img:nth-of-type(even) {
     transform: rotateZ(4deg) translate(0, -5px);
+  }
+
+  #dealer-cards.cards img {
+    transform: rotateZ(180deg);
+  }
+
+  #dealer-cards.cards img:nth-of-type(even) {
+    transform: rotateZ(176deg) translate(0, 5px);
   }
   
   .footer {
