@@ -40,6 +40,10 @@ var deck = {
     }
 };
 
+document.getElementById("bet").oninput = function() {
+    document.getElementById("bet-value").innerHTML = this.value;
+}
+
 document.getElementById("player-money").innerHTML = "Your money: $" + player.money;
 deck.initialize();
 deck.shuffle();
@@ -72,7 +76,10 @@ function bet(outcome) {
     if (outcome === "win") {
         player.money += playerBet;
     }
-    if (outcome === "lose") {
+    else if (outcome === "winOnePointFive") {
+        player.money += (playerBet * 1.5);
+    }
+    else if (outcome === "lose") {
         player.money -= playerBet;
     }
 }
@@ -89,6 +96,7 @@ function resetGame() {
     document.getElementById("stand-button").disabled = true;
     document.getElementById("bet").disabled = false;
     document.getElementById("bet").max = player.money;
+    document.getElementById("bet-value").innerHTML = document.getElementById("bet").value;
     document.getElementById("new-game-button").disabled = false;
 }
 
@@ -142,8 +150,9 @@ function endGame() {
         resetGame();
     }
     else if (player.score === 21 && dealer.score === 21 && player.cards.length === 2 && dealer.cards.length > 2) {
-        document.getElementById("message-board").innerHTML = 'You win! You got BlackJack. Click "Deal" to keep playing';
-        bet("win");
+        document.getElementById("message-board").innerHTML = 'You win! You got higher BlackJack (1.5x money). Click "Deal" to keep playing';
+        //dealer pays 1.5x in this situation
+        bet("winOnePointFive");
         document.getElementById("player-money").innerHTML = "Your money: $" + player.money; 
         resetGame();
     }
@@ -168,6 +177,9 @@ function dealerDraw() {
     var cardImgs = '';
     for (i; i < dealer.cards.length; i += 1) {
         cardImgs += "<img src='images/cards/" + dealer.cards[i].rank + dealer.cards[i].suit + ".png' alt='card'>";
+    }
+    if (dealer.cards.length < 2) {
+        cardImgs += "<img src='images/cards/red_back.png' alt='card'>";
     }
     dealerCards.innerHTML = cardImgs;
 
