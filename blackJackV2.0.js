@@ -3,6 +3,11 @@
 /*global document*/
 "use strict";
 
+if ('serviceWorker' in navigator) { 
+    // register service worker 
+    navigator.serviceWorker.register('service-worker.js'); 
+}
+
 var numCardsPulled = 0;
 
 var player = {
