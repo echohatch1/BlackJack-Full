@@ -8,6 +8,28 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js'); 
 }
 
+var extension = "";
+
+// Check for webp support
+async function supportsWebp() {
+  if (!self.createImageBitmap) return false;
+  
+  const webpData = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=';
+  const blob = await fetch(webpData).then(r => r.blob());
+  return createImageBitmap(blob).then(() => true, () => false);
+}
+
+(async () => {
+  if(await supportsWebp()) {
+    console.log('does support');
+    extension = "webp";
+  }
+  else {
+    console.log('does not support');
+    extension = "png";
+  }
+})();
+
 var numCardsPulled = 0;
 
 var player = {
@@ -181,10 +203,10 @@ function dealerDraw() {
     var i = 0;
     var cardImgs = '';
     for (i; i < dealer.cards.length; i += 1) {
-        cardImgs += "<img src='images/cards/" + dealer.cards[i].rank + dealer.cards[i].suit + ".png' alt='card'>";
+        cardImgs += "<img src='images/cards/" + dealer.cards[i].rank + dealer.cards[i].suit + "." + extension + "' alt='card'>";
     }
     if (dealer.cards.length < 2) {
-        cardImgs += "<img src='images/cards/red_back.png' alt='card'>";
+        cardImgs += "<img src='images/cards/red_back." + extension + "' alt='card'>";
     }
     dealerCards.innerHTML = cardImgs;
 
@@ -210,7 +232,7 @@ function hit() {
     var i = 0;
     var cardImgs = '';
     for (i; i < player.cards.length; i += 1) {
-        cardImgs += "<img src='images/cards/" + player.cards[i].rank + player.cards[i].suit + ".png' alt='card'>";
+        cardImgs += "<img src='images/cards/" + player.cards[i].rank + player.cards[i].suit + "." + extension + "' alt='card'>";
     }
     playerCards.innerHTML = cardImgs;
 

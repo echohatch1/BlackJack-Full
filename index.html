@@ -38,22 +38,23 @@
                     <div id="player-score" class="score">Player: 0</div>
                     <div class="spacer"></div>
                     <div id="player-cards" class="cards center-content"></div>
+                    <div class="spacer"></div>
                 </div>
                 
             </div>
             <div class="column side"></div>
         </div>
 
-        <div class="row">
+        <div class="row controlls">
             <div class="column side"></div>
             <div class="column middle center-content">
 
                 <form name="blackjack" onSubmit="newGame(); return false;" action="javascript:void(0);">
+                    <div class="player-buttons">
                     <button type='submit' id='new-game-button'>Deal</button>
                     <button type="button" id='hit-button' onclick='hit();' disabled>Hit</button>
                     <button type="button" id='stand-button' onclick='stand();' disabled>Stand</button>
-                    <br>
-                    <br>
+                    </div>
                     <div id=player-money></div>
                     <h3>Bet</h3>
                     <div id="bet-value">10</div>
@@ -69,7 +70,7 @@
         </div>
 
 
-        <script src="scripts.js">
+        <script src="blackJackV2.0.js">
         </script>
     </body>
 
