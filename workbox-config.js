@@ -1,7 +1,7 @@
 module.exports = {
 	globDirectory: './',
 	globPatterns: [
-		'**/*.{png,xml,ico,ttf,jpg,html,svg,js,webmanifest,css}'
+		'**/*.{png,ico,ttf,jpg,html,svg,js,css}'
 	],
 	ignoreURLParametersMatching: [
 		/^utm_/,
