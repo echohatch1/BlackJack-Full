@@ -3,33 +3,15 @@
 /*global document*/
 "use strict";
 
-if ('serviceWorker' in navigator) { 
-    // register service worker 
-    navigator.serviceWorker.register('service-worker.js'); 
-}
-
-var extension = "";
-
-// Check for webp support
-async function supportsWebp() {
-  if (!self.createImageBitmap) return false;
-  
-  const webpData = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=';
-  const blob = await fetch(webpData).then(r => r.blob());
-  return createImageBitmap(blob).then(() => true, () => false);
-}
-
-(async () => {
-  if(await supportsWebp()) {
-    console.log('does support');
-    extension = "webp";
+// Check that service workers are supported
+if ('serviceWorker' in navigator) {
+    // Use the window load event to keep the page load performant
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js');
+    });
   }
-  else {
-    console.log('does not support');
-    extension = "png";
-  }
-})();
 
+var extension = "png";
 var numCardsPulled = 0;
 
 var player = {
