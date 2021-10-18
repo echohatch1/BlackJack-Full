@@ -9,9 +9,10 @@ if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('sw.js');
     });
-  }
+}
 
 var extension = "png";
+
 var numCardsPulled = 0;
 
 var player = {
